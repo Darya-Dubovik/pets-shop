@@ -84,3 +84,74 @@ const items = [
     img: "./img/12.jpeg",
   },
 ];
+
+
+const template = document.querySelector('#item-template');
+const shopItem = document.querySelector('#shop-items');
+
+const button = document.querySelector('#search-btn');
+const input = document.querySelector('#search-input');
+const nothingFound = document.querySelector('#nothing-found');
+
+function makeCard(items) {
+  items.forEach((item) => {
+
+    const cardTemplate = useTemplate(item.title, item.description, item.img, item.price, item.tags);
+    shopItem.append(cardTemplate);
+    return makeCard
+  })
+}
+
+  function useTemplate(title, description, img, price, tags) {
+    const templateItem = template.content.cloneNode(true);
+
+    const tagsConteiner = templateItem.querySelector(".tags"); // контейнер для тегов;
+    
+    tags.forEach((tag) => {                                    // перебор массива с тегами;
+    const oneTag = document.createElement('span');                // cоздание span для каждого тега;
+    oneTag.textContent = tag;
+    oneTag.classList.add('tag');                            // присваивание каждому тегу свойства;
+    tagsConteiner.append(oneTag);                           // вставка кажого тега в контейнер tagsConteiner;
+    });
+
+
+    templateItem.querySelector("h1").textContent = title;
+    templateItem.querySelector("p").textContent = description;
+    templateItem.querySelector("img").src = img;
+    templateItem.querySelector(".price").textContent = price;
+    
+    return templateItem;
+  }
+
+  makeCard(items)
+
+    button.addEventListener('click', function() {
+  
+      const searchResult = input.value.trim().toLowerCase();
+      shopItem.innerHTML = '';
+      nothingFound.textContent = '';
+
+      const filteredItems = items.filter((el) =>
+        el.title.trim().toLowerCase().includes(searchResult)
+      );
+
+      if (filteredItems.length > 0) {
+        makeCard(filteredItems);
+      } else {
+        nothingFound.textContent = 'Ничего не найдено';
+        //nothingFound.innerHTML = '';
+      };
+      
+  })
+
+    
+    
+    
+
+ 
+
+
+
+
+
+
