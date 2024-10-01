@@ -95,23 +95,23 @@ const nothingFound = document.querySelector('#nothing-found');
 
 function makeCard(items) {
   items.forEach((item) => {
+    const {title, description, img, price, tags} = item; 
 
-    const cardTemplate = useTemplate(item.title, item.description, item.img, item.price, item.tags);
+    const cardTemplate = useTemplate(title, description, img, price, tags);
     shopItem.append(cardTemplate);
-    return makeCard
-  })
+ })
 }
 
   function useTemplate(title, description, img, price, tags) {
     const templateItem = template.content.cloneNode(true);
 
-    const tagsConteiner = templateItem.querySelector(".tags"); // контейнер для тегов;
+    const tagsConteiner = templateItem.querySelector(".tags"); 
     
-    tags.forEach((tag) => {                                    // перебор массива с тегами;
-    const oneTag = document.createElement('span');                // cоздание span для каждого тега;
+    tags.forEach((tag) => {                                    
+    const oneTag = document.createElement('span');                
     oneTag.textContent = tag;
-    oneTag.classList.add('tag');                            // присваивание каждому тегу свойства;
-    tagsConteiner.append(oneTag);                           // вставка кажого тега в контейнер tagsConteiner;
+    oneTag.classList.add('tag');                            
+    tagsConteiner.append(oneTag);                           
     });
 
 
@@ -123,7 +123,7 @@ function makeCard(items) {
     return templateItem;
   }
 
-  makeCard(items)
+  makeCard(items);
 
     button.addEventListener('click', function() {
   
@@ -139,7 +139,6 @@ function makeCard(items) {
         makeCard(filteredItems);
       } else {
         nothingFound.textContent = 'Ничего не найдено';
-        //nothingFound.innerHTML = '';
       };
       
   })
